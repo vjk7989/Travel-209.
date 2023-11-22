@@ -12,8 +12,8 @@ const Navbar = () => {
     <div className="navbar-container">
   
       <p className="logo">
-      <Link href="https://travel-209-au95.vercel.app/">Home   /      </Link>
-        <Link href="/">Booking Carousal</Link>
+      <Link href="https://travel-209-au95.vercel.app/">Booking Carousal   /      </Link>
+        <Link href="/">Home</Link>
       </p>
       
 
