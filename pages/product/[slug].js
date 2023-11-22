@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 
 import { client, urlFor } from '../../lib/client';
 import { Product } from '../../components';
@@ -11,17 +9,6 @@ const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
-  const [checkInDate, setCheckInDate] = useState(null);
-  const [checkOutDate, setCheckOutDate] = useState(null);
-
-  const handleCheckInChange = (date) => {
-    setCheckInDate(date);
-  };
-
-  const handleCheckOutChange = (date) => {
-    setCheckOutDate(date);
-  };
-
 
   const handleBuyNow = () => {
     onAdd(product, qty);
@@ -29,6 +16,25 @@ const ProductDetails = ({ product, products }) => {
     setShowCart(true);
   }
 
+  const handleUpdateNow = () => {
+    const password = prompt('Enter the password:');
+    
+    // Check if the password is correct (for simplicity, using '1234' as the correct password)
+    if (password === '1234') {
+      const title = prompt('Enter the title:');
+      const description = prompt('Enter the description:');
+      const price = prompt('Enter the price:');
+      
+      // Now you have the title, description, and price
+      alert('Title: ${title}\nDescription: ${description}\nPrice: ${price}');
+      window.location.href = 'https://travel-209.vercel.app/';
+    } else {
+      alert('Incorrect password. Update cancelled.');
+    }
+  };
+  const handleDeleteNow = () => {
+    window.location.href = 'https://travel-209.vercel.app/';
+  };
   return (
     <div>
       <div className="product-detail-container">
@@ -72,33 +78,12 @@ const ProductDetails = ({ product, products }) => {
               <span className="num">{qty}</span>
               <span className="plus" onClick={incQty}><AiOutlinePlus /></span>
             </p>
-            
           </div>
-              <div>
-                <p></p>
-                <p></p>
-                <p></p>
-              </div>
-          <div>
-      <label><h2>Check-in Date:</h2></label>
-      <DatePicker
-        selected={checkInDate}
-        onChange={handleCheckInChange}
-        showTimeSelect
-        dateFormat="Pp"
-      />
-
-      <label><h2>Check-out Date:</h2></label>
-      <DatePicker
-        selected={checkOutDate}
-        onChange={handleCheckOutChange}
-        showTimeSelect
-        dateFormat="Pp"
-      />
-    </div>
           <div className="buttons">
-            <button type="button" className="add-to-cart" onClick={() => onAdd(product, qty)}>Check-out</button>
+            <button type="button" className="add-to-cart" onClick={() => onAdd(product, qty)}>Add to Cart</button>
             <button type="button" className="buy-now" onClick={handleBuyNow}>Buy Now</button>
+            <button type="button" className="delete" onClick={handleDeleteNow}>Delete item</button>
+            <button type="button" className="update" onClick={handleUpdateNow}>Update</button>
           </div>
         </div>
       </div>
@@ -141,6 +126,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params: { slug }}) => {
   const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
+
   const productsQuery = '*[_type == "product"]'
   
   const product = await client.fetch(query);
