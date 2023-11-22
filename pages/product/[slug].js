@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 import { client, urlFor } from '../../lib/client';
 import { Product } from '../../components';
@@ -9,6 +11,17 @@ const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext();
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
+
+  const handleCheckInChange = (date) => {
+    setCheckInDate(date);
+  };
+
+  const handleCheckOutChange = (date) => {
+    setCheckOutDate(date);
+  };
+
 
   const handleBuyNow = () => {
     onAdd(product, qty);
@@ -59,7 +72,30 @@ const ProductDetails = ({ product, products }) => {
               <span className="num">{qty}</span>
               <span className="plus" onClick={incQty}><AiOutlinePlus /></span>
             </p>
+            
           </div>
+              <div>
+                <p></p>
+                <p></p>
+                <p></p>
+              </div>
+          <div>
+      <label><h2>Check-in Date:</h2></label>
+      <DatePicker
+        selected={checkInDate}
+        onChange={handleCheckInChange}
+        showTimeSelect
+        dateFormat="Pp"
+      />
+
+      <label><h2>Check-out Date:</h2></label>
+      <DatePicker
+        selected={checkOutDate}
+        onChange={handleCheckOutChange}
+        showTimeSelect
+        dateFormat="Pp"
+      />
+    </div>
           <div className="buttons">
             <button type="button" className="add-to-cart" onClick={() => onAdd(product, qty)}>Add to Cart</button>
             <button type="button" className="buy-now" onClick={handleBuyNow}>Buy Now</button>

@@ -17,11 +17,14 @@ const FooterBanner = ({ footerBanner: { discount, largeText1, largeText2, saleTi
           <p>{smallText}</p>
           <h3>{midText}</h3>
           <p>{desc}</p>
-          <Link href={`/product/${product}`}>
+          <Link href="#">
             <button type="button">{buttonText}</button>
           </Link>
         </div>
 
+        <img 
+          src="https://cdni.iconscout.com/illustration/premium/thumb/traveling-route-3862322-3213893.png" className="hero-banner-image"
+        />
         <img 
           src={urlFor(image)} className="footer-banner-image"
         />

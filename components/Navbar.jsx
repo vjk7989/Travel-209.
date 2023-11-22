@@ -10,9 +10,12 @@ const Navbar = () => {
 
   return (
     <div className="navbar-container">
+  
       <p className="logo">
-        <Link href="/">Team-209</Link>
+      <Link href="/">Home   /      </Link>
+        <Link href="/">Booking Carousal</Link>
       </p>
+      
 
       <button type="button" className="cart-icon" onClick={() => setShowCart(true)}>
         <AiOutlineShopping />
